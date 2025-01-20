@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
+// my confirm comment on intro screen 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
 static const String routeName = '/intro';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     body: SafeArea(
-
+     body: SafeArea(  
+     
         minimum: const EdgeInsets.symmetric(horizontal: 16,vertical: 25),
         child: Center(
           child: Column(
