@@ -12,11 +12,8 @@ static const String routeName = '/intro';
         minimum: const EdgeInsets.symmetric(horizontal: 16,vertical: 25),
         child: Center(
           child: Column(
-            
-     //columnnnnnnnnnn
-            children: [ 
-              
-              //Image.asset("assets/images/header.png"),
+            children: [  
+              Image.asset("assets/images/header.png",width: 160, height: 50,),
               const SizedBox(height: 28,),
               Image.asset("assets/images/welcome.png"),
                const SizedBox(height: 28,),
