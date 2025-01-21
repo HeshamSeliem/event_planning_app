@@ -1,10 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 // my confirm comment on intro screen
 //welcome development branch
 class IntroScreen extends StatelessWidget {
-  const IntroScreen({super.key});
+   IntroScreen({super.key});
   static const String routeName = '/intro';
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,37 +34,72 @@ class IntroScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Personalize Your Experience",
+                    "introduction_title".tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
               ),
               const SizedBox(
-                height: 28,
+                height: 20,
               ),
               Text(
-                  "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16)),
+                  "introduction_description".tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .copyWith(fontSize: 16)),
               const SizedBox(
                 height: 18,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Language",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    "language".tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  ToggleSwitch(
+                    inactiveFgColor: Colors.white,
+                    cornerRadius: 50,
+                    activeBgColor: [Color(0xff5669FF), Colors.blue.shade200],
+                    initialLabelIndex: 1,
+                    totalSwitches: 2,
+                    labels:const ['Arabic', 'English'],
+                    animate: true, // with just animate set to true, default curve = Curves.easeIn
+                    curve: Curves.bounceInOut,
+                    onToggle: (index) {
+                      currentIndex = index!;
+                     if(index==0){
+                       context.setLocale(const Locale('ar'));
+                     }
+                     else{
+                        context.setLocale(const Locale('en'));
+                     }
+                     print('switched to: $index');
+                     print(context.locale.toString());
+                    }
+                    
+    ),
                 ],
               ),
               const SizedBox(
                 height: 16,
               ),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Theme",
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Text("theme".tr(), style: Theme.of(context).textTheme.titleMedium),
+                  ToggleSwitch(
+                    inactiveFgColor: Colors.white,
+                    cornerRadius: 50,
+                    activeBgColor:const [ Color(0xff5669FF)],
+                    initialLabelIndex: 0,
+                    totalSwitches: 2,
+                    labels:const ['Light', 'Dark'],
+                    onToggle: (index) {
+                      print('switched to: $index');
+                    },
+                  ),
                 ],
               ),
               const SizedBox(
@@ -75,9 +114,12 @@ class IntroScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 135, vertical: 15)),
                   onPressed: () {},
-                  child:  Text(
-                    "Let’s Start",
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
+                  child: Text(
+                    "lets_go".tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: Colors.white),
                   ))
             ],
           ),
