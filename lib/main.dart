@@ -1,22 +1,33 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_app/screens/create_event/create_event.dart';
+import 'package:event_planning_app/screens/home/home_screen.dart';
+import 'package:event_planning_app/provider/my_provider.dart';
+import 'package:event_planning_app/screens/auth/forget_password.dart';
+import 'package:event_planning_app/screens/auth/login_screen.dart';
+import 'package:event_planning_app/screens/auth/register_screen.dart';
 import 'package:event_planning_app/screens/intro_screen.dart';
 import 'package:event_planning_app/theme/dark_theme.dart';
 import 'package:event_planning_app/theme/light_theme.dart';
 import 'package:event_planning_app/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  runApp(EasyLocalization(
-      supportedLocales: [
-        Locale('en'),
-         Locale('ar')
-         ],
-      path: 'assets/translations',
-      fallbackLocale: Locale('en'),
-      child: const MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (BuildContext context) => MyProvider(),
+      child: EasyLocalization(
+        supportedLocales: [
+          Locale('en'),
+           Locale('ar')
+           ],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en'),
+        child: const MyApp()),
+    ));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,6 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     BaseTheme theme = LightTheme();
     BaseTheme darkTheme = DarkTheme();
+    var provider = Provider.of<MyProvider>(context); // this line is to get the provider and use it in the theme mode
     return MaterialApp(
       // this is the context of the app translated
       localizationsDelegates: context.localizationDelegates,
@@ -35,11 +47,16 @@ class MyApp extends StatelessWidget {
      // to here
       darkTheme: darkTheme.themeData,
       theme: theme.themeData,
-      themeMode: ThemeMode.light,
+      themeMode: provider.themeMode,
       debugShowCheckedModeBanner: false,
       initialRoute: IntroScreen.routeName,
       routes: {
         IntroScreen.routeName: (context) => IntroScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        RegisterScreen.routeName:(context) => RegisterScreen(),
+        ForgetPassword.routeName:(context) => ForgetPassword(),
+        HomeScreen.routeName:(context) => HomeScreen(),
+        CreateEvent.routeName:(context) => CreateEvent()
       },
     );
   }

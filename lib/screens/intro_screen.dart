@@ -1,16 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_app/main.dart';
+import 'package:event_planning_app/provider/my_provider.dart';
+import 'package:event_planning_app/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 // my confirm comment on intro screen
 //welcome development branch
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
    IntroScreen({super.key});
   static const String routeName = '/intro';
+
+  @override
+  State<IntroScreen> createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
   int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context); // to tell this app that i want to create object of provider here
     return Scaffold(
       // backgroundColor:const Color(0xffF2FEFF),
       body: SafeArea(
@@ -92,11 +103,19 @@ class IntroScreen extends StatelessWidget {
                   ToggleSwitch(
                     inactiveFgColor: Colors.white,
                     cornerRadius: 50,
-                    activeBgColor:const [ Color(0xff5669FF)],
-                    initialLabelIndex: 0,
+                    activeBgColor: [Color(0xff5669FF), Colors.blue.shade200],
+                   inactiveBgColor: Colors.grey,
+                    initialLabelIndex: currentIndex,
                     totalSwitches: 2,
+                    animate: true, // with just animate set to true, default curve = Curves.easeIn
+                    curve: Curves.bounceInOut, 
                     labels:const ['Light', 'Dark'],
                     onToggle: (index) {
+                      currentIndex = index!;
+                      setState(() {
+                        
+                      });
+                     provider.changeThemeMode();
                       print('switched to: $index');
                     },
                   ),
@@ -113,7 +132,10 @@ class IntroScreen extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 135, vertical: 15)),
-                  onPressed: () {},
+                  onPressed: () 
+                  {
+                    Navigator.pushNamed(context, LoginScreen.routeName);
+                  },
                   child: Text(
                     "lets_go".tr(),
                     style: Theme.of(context)

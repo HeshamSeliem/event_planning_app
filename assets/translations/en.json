@@ -3,5 +3,16 @@
     "introduction_description": "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style",
     "language": "Language",
     "theme": "Theme",
-    "lets_go": "Let's Go"
+    "lets_go": "Let's Go",
+    "Emaill": "Email",
+    "Login": "Login",
+     "Forget Password?" : "Forget Password?",
+     "Don’t Have Account?" : "Don’t Have Account?",
+     "Create Account" : "Create Account",
+     "OR" : "OR",
+     "Password" : "Password",
+     "Home" : "Home",
+      "Map"   : "Map",
+      "Love" : "Love",
+      "Profile" : "Profile"
 }

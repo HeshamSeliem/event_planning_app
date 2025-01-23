@@ -30,6 +30,13 @@ class LightTheme extends BaseTheme {
       showUnselectedLabels: true,
       unselectedItemColor: Colors.white.withOpacity(0.5),
     ),
+     floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: primaryColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+        side: const BorderSide(color: Colors.white, width: 4),
+      ),
+    ),
     textTheme: TextTheme(
       titleMedium: TextStyle(
         fontSize: 20,

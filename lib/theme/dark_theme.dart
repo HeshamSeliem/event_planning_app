@@ -30,6 +30,13 @@ class DarkTheme extends BaseTheme {
       showUnselectedLabels: true,
       unselectedItemColor: Colors.white.withOpacity(0.5),
     ),
+     floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+        side: const BorderSide(color: Colors.white, width: 4),
+      ),
+    ),
     textTheme: TextTheme(
       titleMedium: TextStyle(
         fontSize: 20,
@@ -43,7 +50,7 @@ class DarkTheme extends BaseTheme {
       ),
       titleLarge: TextStyle(
         fontSize: 23,
-        color: primaryColor,
+        color: textColor,
         fontWeight: FontWeight.w500
       ),
     ),
