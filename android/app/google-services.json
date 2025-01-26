@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "378085307622",
+    "project_id": "event-panning-app",
+    "storage_bucket": "event-panning-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378085307622:android:2cae0a072dce4093d83727",
+        "android_client_info": {
+          "package_name": "com.example.event_planning_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvAfwSTmpcGvonadFsycuuKdNAx3AtmCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

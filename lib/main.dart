@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_app/firebase_options.dart';
 import 'package:event_planning_app/screens/create_event/create_event.dart';
 import 'package:event_planning_app/screens/home/home_screen.dart';
 import 'package:event_planning_app/provider/my_provider.dart';
@@ -9,14 +10,18 @@ import 'package:event_planning_app/screens/intro_screen.dart';
 import 'package:event_planning_app/theme/dark_theme.dart';
 import 'package:event_planning_app/theme/light_theme.dart';
 import 'package:event_planning_app/theme/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
 
-  runApp(
+  runApp(  
     ChangeNotifierProvider(
       create: (BuildContext context) => MyProvider(),
       child: EasyLocalization(
