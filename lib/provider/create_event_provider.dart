@@ -18,5 +18,12 @@ class CreateEventProvider extends ChangeNotifier {
     currentEventIndex = index;
    notifyListeners();
   }
+  var selectedDate = DateTime.now();
+
+              changeDate(date)
+              {
+                selectedDate = date;
+                notifyListeners();
+              }
   
 }
