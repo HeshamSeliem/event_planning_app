@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_app/firebase/firebase_manager.dart';
 import 'package:event_planning_app/firebase_options.dart';
 import 'package:event_planning_app/screens/create_event/create_event.dart';
 import 'package:event_planning_app/screens/home/home_screen.dart';
@@ -20,7 +21,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
-
+ 
   runApp(  
     ChangeNotifierProvider(
       create: (BuildContext context) => MyProvider(),
