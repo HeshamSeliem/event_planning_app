@@ -136,7 +136,7 @@ class CreateEvent extends StatelessWidget {
                        TaskModel task= TaskModel(
                           title: titleController.text,
                          image: provider.categoriesImages[provider.currentEventIndex],
-                          date: provider.selectedDate.microsecondsSinceEpoch,
+                          date: provider.selectedDate.millisecondsSinceEpoch,
                            descreption: descreptionController.text
                            );
                         FirebaseManager.addEvent(task).then((onValue)

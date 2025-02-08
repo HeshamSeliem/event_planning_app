@@ -24,4 +24,16 @@ class FirebaseManager{
      task.id = docRev.id;  // here i set the doc id to the task id
      return docRev.set(task); // i tell him to set this task which i pass to it
   }
+  static Stream<QuerySnapshot<TaskModel>> getEvent()
+  {
+    var collection = getTaskCollection();
+    return collection.orderBy("date").snapshots();
+  }
+
+  static Future<void>deleteEvent(String id)//the return type is future<void>
+  {
+    var collection = getTaskCollection(); // first i hols the collection 
+    return collection.doc(id).delete();// secend i go to the document depending on it is id and delete it
+  }
+                
 }
