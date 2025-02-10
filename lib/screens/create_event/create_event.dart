@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_app/firebase/firebase_manager.dart';
 import 'package:event_planning_app/models/task_model.dart';
 import 'package:event_planning_app/provider/change_date_provider.dart';
 import 'package:event_planning_app/provider/create_event_provider.dart';
 import 'package:event_planning_app/widgets/event_category_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -134,6 +136,7 @@ class CreateEvent extends StatelessWidget {
                       onPressed: () 
                       {
                        TaskModel task= TaskModel(
+                        userId: FirebaseAuth.instance.currentUser!.uid,
                           title: titleController.text,
                          image: provider.categoriesImages[provider.currentEventIndex],
                           date: provider.selectedDate.millisecondsSinceEpoch,

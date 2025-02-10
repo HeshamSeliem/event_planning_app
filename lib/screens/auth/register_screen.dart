@@ -1,3 +1,4 @@
+import 'package:event_planning_app/firebase/firebase_manager.dart';
 import 'package:event_planning_app/screens/home/home_screen.dart';
 import 'package:event_planning_app/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -47,10 +48,25 @@ class RegisterScreen extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: const InputDecoration(
+                  style: Theme.of(context).textTheme.titleMedium,
+                  decoration: InputDecoration(
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Color(0xff7B7B7B)),
                     hintText: "Name",
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: const Icon(Icons.person),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
                   ),
                 ),
                 const SizedBox(
@@ -71,10 +87,25 @@ class RegisterScreen extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: const InputDecoration(
+                  style: Theme.of(context).textTheme.titleMedium,
+                  decoration: InputDecoration(
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: const Color(0xff7B7B7B)),
                     hintText: "Email",
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: const Icon(Icons.email),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
                   ),
                 ),
                 const SizedBox(
@@ -91,11 +122,26 @@ class RegisterScreen extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: const InputDecoration(
+                  style: Theme.of(context).textTheme.titleMedium,
+                  decoration: InputDecoration(
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Color(0xff7B7B7B)),
                     hintText: "Password",
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.visibility),
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: const Icon(Icons.visibility),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
                   ),
                 ),
                 const SizedBox(
@@ -115,35 +161,81 @@ class RegisterScreen extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: const InputDecoration(
+                  style: Theme.of(context).textTheme.titleMedium,
+                  decoration: InputDecoration(
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Color(0xff7B7B7B)),
                     hintText: "rePassword",
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.visibility_off_outlined),
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: const Icon(Icons.visibility_off_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
                   ),
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 40,
                 ),
-                 ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, HomeScreen.routeName);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(16),
-                 backgroundColor:  Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      FirebaseManager.createAccount(
+                          emailController.text, passwordController.text,nameController.text,
+                           () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Center(child: CircularProgressIndicator()),
+                            backgroundColor: Colors.transparent,
+                          ),
+                        );
+                      }, () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }, (message) {
+                        Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("some thing went error"),
+                            content: Text(message),
+                            actions: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("OK"))
+                            ],
+                          ),
+                        );
+                      });
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
+                    backgroundColor: const Color(
+                        0xff5669FF), // Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Text(
+                    "Create Account",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.white,
+                        ),
                   ),
                 ),
-                child: Text(
-                  "Create Account",
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-           
                 const SizedBox(
                   height: 24,
                 ),
@@ -158,7 +250,7 @@ class RegisterScreen extends StatelessWidget {
                         TextSpan(
                           text: "Already Have Account? ",
                           style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
                                     fontSize: 16,
                                     color: Colors.black,
                                   ),
@@ -167,10 +259,10 @@ class RegisterScreen extends StatelessWidget {
                             text: "Login",
                             style: Theme.of(context)
                                 .textTheme
-                                .titleSmall!
+                                .titleMedium!
                                 .copyWith(
                                   decoration: TextDecoration.underline,
-                                  color: Theme.of(context).primaryColor,
+                                  //color: Theme.of(context).primaryColor,
                                 )!),
                       ],
                     ),

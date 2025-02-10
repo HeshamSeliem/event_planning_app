@@ -10,47 +10,67 @@ class ForgetPassword extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         title: Text("Forget Password",
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(
           fontSize: 20
         ),),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Image.asset("assets/images/forget_password.png"),
-            SizedBox(
-              height: 24,
-            ),
-            TextField(
-              controller: emaillController,
-              style: Theme.of(context).textTheme.bodyMedium,
-              decoration: InputDecoration(
-                hintText: "Emaill",
-                prefixIcon: Icon(Icons.email),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset("assets/images/forget_password.png"),
+              const SizedBox(
+                height: 24,
               ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                    backgroundColor: Color(0xFF5669FF)),
-                child: Text(
-                  "Send Email",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white),
-                )),
-          ],
+              TextField(
+                controller: emaillController,
+                style: Theme.of(context).textTheme.titleMedium,
+                decoration: InputDecoration(
+                  hintText: "Emaill",
+                  prefixIcon: Icon(Icons.email),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor
+                      )
+                    ),
+                     focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor
+                      )
+                    ),
+                     errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor
+                      )
+                    )
+                ),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                  },
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: Color(0xFF5669FF)),
+                  child: Text(
+                    "Send Email",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.white),
+                  )),
+            ],
+          ),
         ),
       ),
     );

@@ -6,6 +6,7 @@ class TaskModel {
   String descreption;
   int date;
   bool isDone;
+  String? userId;
    
    TaskModel({
     this.id = "",
@@ -13,7 +14,8 @@ class TaskModel {
     required this.image,
     required this.date,
     required this.descreption,
-    this.isDone = false
+    this.isDone = false,
+    required this.userId
    });
       TaskModel.fromJson(Map<String , dynamic> json) // this fun take map of string ,dynamic and return object
       : this( // this key word call the parameters of main class
@@ -22,7 +24,8 @@ class TaskModel {
         descreption: json["descreption"],
         image: json["image"],
         title: json["title"],
-        isDone: json["isDone"]
+        isDone: json["isDone"],
+        userId: json["userId"]
         );
 
       Map<String,dynamic> toJson(){ //this fun take object and return map
@@ -32,7 +35,8 @@ class TaskModel {
         "descreption": descreption,
         "image": image,
         "title": title,
-        "isDone": isDone
+        "isDone": isDone,
+        "userId" :userId
         };
       }
 }

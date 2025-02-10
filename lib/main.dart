@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_app/firebase/firebase_manager.dart';
 import 'package:event_planning_app/firebase_options.dart';
+import 'package:event_planning_app/provider/user_provider.dart';
 import 'package:event_planning_app/screens/create_event/create_event.dart';
 import 'package:event_planning_app/screens/home/home_screen.dart';
 import 'package:event_planning_app/provider/my_provider.dart';
@@ -21,21 +23,29 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
- 
-  runApp(  
-    ChangeNotifierProvider(
-      create: (BuildContext context) => MyProvider(),
-      child: EasyLocalization(
-        supportedLocales: [
-          Locale('en'),
-           Locale('ar')
-           ],
-        path: 'assets/translations',
-        fallbackLocale: Locale('en'),
-        child: const MyApp()),
-    ));
-}
 
+// await FirebaseFirestore.instance.disableNetwork();
+ //thus line makes my app store on local database 
+  runApp(  
+    
+      
+       MultiProvider(
+        providers: [
+         ChangeNotifierProvider(create: (BuildContext context) => MyProvider(),),
+         ChangeNotifierProvider(create: (BuildContext context) => UserProvider(),)
+        ],
+         child: EasyLocalization(
+          supportedLocales: [
+            Locale('en'),
+             Locale('ar')
+             ],
+          path: 'assets/translations',
+          fallbackLocale: Locale('en'),
+          child: const MyApp()),
+       ),
+    
+    );
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -45,6 +55,7 @@ class MyApp extends StatelessWidget {
     BaseTheme theme = LightTheme();
     BaseTheme darkTheme = DarkTheme();
     var provider = Provider.of<MyProvider>(context); // this line is to get the provider and use it in the theme mode
+    var userProvider = Provider.of<UserProvider>(context);
     return MaterialApp(
       // this is the context of the app translated
       localizationsDelegates: context.localizationDelegates,
@@ -55,7 +66,8 @@ class MyApp extends StatelessWidget {
       theme: theme.themeData,
       themeMode: provider.themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: IntroScreen.routeName,
+      initialRoute: userProvider.firebaseUser !=null ? HomeScreen.routeName : IntroScreen.routeName
+      ,
       routes: {
         IntroScreen.routeName: (context) => IntroScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
